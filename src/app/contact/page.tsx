@@ -82,7 +82,7 @@ export default function ContactPage() {
     });
 
     try {
-      const response = await fetch("/contact-form.html", {
+      const response = await fetch("/__forms.htm", {
         method: "POST",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
