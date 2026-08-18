@@ -67,8 +67,8 @@ export default function ContactPage() {
     event.preventDefault();
 
     setSubmitting(true);
-    setSubmitError("");
     setSubmitted(false);
+    setSubmitError("");
 
     const form = event.currentTarget;
     const formData = new FormData(form);
@@ -91,13 +91,13 @@ export default function ContactPage() {
       });
 
       if (!response.ok) {
-        throw new Error("Netlify form submission failed.");
+        throw new Error("Netlify submission failed.");
       }
 
       form.reset();
       setSubmitted(true);
     } catch (error) {
-      console.error(error);
+      console.error("Netlify form error:", error);
 
       setSubmitError(
         "We could not send your request. Please try again or contact us on WhatsApp."
@@ -174,56 +174,9 @@ export default function ContactPage() {
               </div>
             </div>
 
-            {/* NETLIFY FORM DETECTION */}
             <form
               name={FORM_NAME}
               method="POST"
-              data-netlify="true"
-              data-netlify-honeypot="bot-field"
-              action="/contact"
-              className="netlify-form-detection"
-              aria-hidden="true"
-            >
-              <input
-                type="hidden"
-                name="form-name"
-                value={FORM_NAME}
-              />
-
-              <input
-                type="hidden"
-                name="subject"
-                data-remove-prefix
-                value="New Sleeper Sales Quote Request"
-              />
-
-              <input name="bot-field" type="text" />
-
-              <input name="productType" type="text" />
-              <input name="grade" type="text" />
-              <input name="length" type="text" />
-              <input name="quantity" type="text" />
-              <input name="services" type="text" />
-
-              <input name="fullName" type="text" />
-              <input name="phone" type="text" />
-              <input name="email" type="email" />
-              <input name="company" type="text" />
-
-              <input name="deliveryArea" type="text" />
-              <input name="deliveryDate" type="text" />
-              <input name="projectType" type="text" />
-              <input name="deliveryRequired" type="text" />
-
-              <textarea name="notes" />
-            </form>
-
-            {/* VISIBLE FORM */}
-            <form
-              name={FORM_NAME}
-              method="POST"
-              data-netlify="true"
-              data-netlify-honeypot="bot-field"
               onSubmit={handleSubmit}
               className="quote-form"
             >
@@ -236,17 +189,23 @@ export default function ContactPage() {
               <input
                 type="hidden"
                 name="subject"
-                data-remove-prefix
                 value="New Sleeper Sales Quote Request"
               />
 
+              {/* HONEYPOT */}
               <div className="netlify-honeypot">
                 <label>
                   Don&apos;t fill this out if you&apos;re human:
-                  <input name="bot-field" type="text" tabIndex={-1} />
+                  <input
+                    name="bot-field"
+                    type="text"
+                    tabIndex={-1}
+                    autoComplete="off"
+                  />
                 </label>
               </div>
 
+              {/* STEPS */}
               <div className="quote-steps">
                 <div className="quote-step active">
                   <span>1</span>
@@ -499,6 +458,7 @@ export default function ContactPage() {
                 </FormField>
               </div>
 
+              {/* NOTES */}
               <div className="form-field full-width-field">
                 <label>
                   Additional Notes / Requirements
@@ -511,7 +471,7 @@ export default function ContactPage() {
                 />
               </div>
 
-              {/* SUBMIT */}
+              {/* SUBMISSION */}
               <div className="form-actions">
                 {submitted && (
                   <div className="form-success">
@@ -572,6 +532,7 @@ export default function ContactPage() {
 
                 <div>
                   <MapPin size={19} />
+
                   <span>
                     Sleeper Sales CC
                     <br />
@@ -587,6 +548,7 @@ export default function ContactPage() {
 
                 <div>
                   <Clock3 size={19} />
+
                   <span>
                     Monday - Friday: 7:30am - 4:30pm
                     <br />
@@ -596,7 +558,7 @@ export default function ContactPage() {
               </div>
             </div>
 
-            {/* WHATSAPP CARD — 082 952 9150 */}
+            {/* WHATSAPP */}
             <div className="contact-whatsapp-card">
               <div className="contact-whatsapp-icon">
                 <MessageCircle size={31} />
